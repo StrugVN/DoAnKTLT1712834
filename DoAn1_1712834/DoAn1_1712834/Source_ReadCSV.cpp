@@ -90,7 +90,8 @@ void FileToSV(CSDL& ds, wchar_t* filepath) {
 
 		p = Token(NULL, L',', L'\"');
 		while (p) {
-			sv.InsHobby(p);
+			if (wcslen(p)>0)
+				sv.InsHobby(p);
 			p = Token(NULL, L',', L'\"');
 		}
 		ds.Add(sv);

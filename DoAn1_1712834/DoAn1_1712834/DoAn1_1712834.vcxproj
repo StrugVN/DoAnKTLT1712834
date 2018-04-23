@@ -114,12 +114,10 @@
   <ItemGroup>
     <ClCompile Include="HTML.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Source_HTML.cpp" />
     <ClCompile Include="Source_ReadCSV.cpp" />
     <ClCompile Include="Source_SV.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CreateHTML.h" />
     <ClInclude Include="HTML.h" />
     <ClInclude Include="SV.h" />
   </ItemGroup>
