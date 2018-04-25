@@ -23,20 +23,15 @@ int main() {
 	t_sv.InsDes(L"Tôi là một người rất thân thiện.");
 	t_sv.InsHobby(L"Âm nhạc: POP, Balad");
 	t_sv.InsHobby(L"Ẩm thực: bún riêu, bún thịt nướng");
-
-	wchar_t **extra = (wchar_t**)malloc(sizeof(wchar_t*) * 2);
-	extra[0] = L"NGUYỄN VĂN A";
-	extra[1] = L"CÔNG NGHỆ THÔNG TIN";
-	// ================= Tùy theo extra mà Source_HTML.cpp thay đổi (1 dòng/1 extra) ========================
+	// ================= ===================================================== ====================
 	
 	CSDL dssv;
 	FileToSV(dssv, L"dl1.csv");
 
-	Generate(L"mau.htm", dssv, t_sv, extra);
+	Generate(L"mau.htm", dssv, t_sv);
 	
 	FreeCSDL(dssv);
 	FreeSV(t_sv);
-	free(extra);
 
 	return 0;
 }

@@ -48,7 +48,35 @@ wchar_t* ToWCS(int a) {
 	return kq;
 }
 
-void CreateAPage(wchar_t *t_html, SV t_sv, SV sv, wchar_t **extra) {
+wchar_t* ToWupper(wchar_t* wcs) {
+	wchar_t* temp = (wchar_t *)malloc((wcslen(wcs) + 1) * sizeof(wchar_t));
+	for (int i = 0; i < wcslen(wcs); i++) {
+		if (wcs[i] >= 256 && wcs[i] % 2 != 0)
+			temp[i] = wcs[i] - 1;
+		else if (wcs[i] == 32 || (wcs[i] >= 256 && wcs[i] % 2 == 0) || (wcs[i] >= 65 && wcs[i] <= 90))
+			temp[i] = wcs[i];
+		else
+			temp[i] = wcs[i] - 32;
+	}
+	temp[wcslen(wcs)] = L'\0';
+	return temp;
+}
+
+wchar_t* ToWlower(wchar_t* wcs) {
+	wchar_t* temp = (wchar_t *)malloc((wcslen(wcs) + 1) * sizeof(wchar_t));
+	for (int i = 0; i < wcslen(wcs); i++) {
+		if (wcs[i] >= 256 && wcs[i] % 2 == 0)
+			temp[i] = wcs[i] + 1;
+		else if (wcs[i] == 32 || (wcs[i] >= 256 && wcs[i] % 2 != 0) || (wcs[i] >= 97 && wcs[i] <= 122))
+			temp[i] = wcs[i];
+		else
+			temp[i] = wcs[i] + 32;
+	}
+	temp[wcslen(wcs)] = L'\0';
+	return temp;
+}
+
+void CreateAPage(wchar_t *t_html, SV t_sv, SV sv) {
 	FILE *f = _wfopen(t_html, L"r,ccs=UTF-16LE");
 	wchar_t* des = GenerateName(sv);
 	FILE *out = _wfopen(des, L"w,ccs=UTF-16LE");
@@ -65,13 +93,36 @@ void CreateAPage(wchar_t *t_html, SV t_sv, SV sv, wchar_t **extra) {
 
 			if (wcsstr(temp, t_sv.name))
 				FindNReplace(temp, t_sv.name, sv.name);
-			if (wcsstr(temp, extra[0]))
-				FindNReplace(temp, extra[0], sv.name);
+			wchar_t *t_Ncase = ToWupper(t_sv.name);
+			wchar_t *Ncase = ToWupper(sv.name);
+			if (wcsstr(temp, t_Ncase))
+				FindNReplace(temp, t_Ncase, Ncase);
+			free(t_Ncase);
+			free(Ncase);
+			
+			t_Ncase = ToWlower(t_sv.name);
+			Ncase = ToWlower(sv.name);
+			if (wcsstr(temp, t_Ncase))
+				FindNReplace(temp, t_Ncase, Ncase);
+			free(t_Ncase);
+			free(Ncase);
 
 			if (wcsstr(temp, t_sv.fac))
 				FindNReplace(temp, t_sv.fac, sv.fac);
-			if (wcsstr(temp, extra[1]))
-				FindNReplace(temp, extra[1], sv.fac);
+
+			t_Ncase = ToWupper(t_sv.fac);
+			Ncase = ToWupper(sv.fac);
+			if (wcsstr(temp, t_Ncase))
+				FindNReplace(temp, t_Ncase, Ncase);
+			free(t_Ncase);
+			free(Ncase);
+
+			t_Ncase = ToWlower(t_sv.fac);
+			Ncase = ToWlower(sv.fac);
+			if (wcsstr(temp, t_Ncase))
+				FindNReplace(temp, t_Ncase, Ncase);
+			free(t_Ncase);
+			free(Ncase);
 			
 
 			wchar_t *year = ToWCS(sv.year);
@@ -139,7 +190,7 @@ wchar_t* GenerateName(SV sv) {
 	return wcs;
 }
 
-void Generate(wchar_t *t_html, CSDL dssv, SV t_sv, wchar_t **extra) {
+void Generate(wchar_t *t_html, CSDL dssv, SV t_sv) {
 	for (unsigned int i = 0; i < dssv.sl; i++)
-		CreateAPage(t_html, t_sv, dssv.ds[i], extra);
+		CreateAPage(t_html, t_sv, dssv.ds[i]);
 }
