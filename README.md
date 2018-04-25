@@ -9,7 +9,8 @@
  - 25/4/2018 Update Readme. Giải quyết vấn đề 1 số trường (SV mẫu) in hoa/thường toàn bộ so với dữ liệu SV mẫu. Nơi nào viết hoa hết sẽ ghi vào hoa hết và tương tự.
  
  
-    ========================== Public repo ========================================
+    ========================== Public repo ======================
         - Repo ở Github hiện tại là public, ần phải trả $ mới có thể set private
         - Ai cũng có thể tìm ra và xem toàn bộ code, thậm chí sao chép (fork) cả repo (2 hình .png)
-    ============= Hãy hỏi ý mình trước khi vào xem nha :) ==========================
+        
+    ============= Hãy hỏi ý mình trước khi vào xem nha :) ===========
