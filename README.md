@@ -10,6 +10,7 @@
  
  
     ========================== Public repo ======================
+    
         - Repo ở Github hiện tại là public, ần phải trả $ mới có thể set private
         - Ai cũng có thể tìm ra và xem toàn bộ code, thậm chí sao chép (fork) cả repo (2 hình .png)
         
