@@ -40,6 +40,12 @@ void FindNReplace(wchar_t *&wcs, wchar_t *f, wchar_t *rw, bool& flag) {
 }
 
 wchar_t* ToWCS(int a) {
+	if (a == 0) {
+		wchar_t *kq = (wchar_t*)malloc(sizeof(wchar_t)*2);
+		kq[0] = L'0';
+		kq[1] = L'\0';
+		return kq;
+	}
 	int n = (int)log10((double)a) + 1;
 	wchar_t *kq = (wchar_t*)malloc(sizeof(wchar_t)*(n + 1));
 
@@ -313,8 +319,8 @@ bool CreateAPage(wchar_t *t_html, SV t_sv, SV sv) {
 
 			wchar_t *year = ToWCS(sv.year);
 			wchar_t *t_year = ToWCS(t_sv.year);
-			if (wcsstr(temp, year))
-				FindNReplace(temp, year, t_year);
+			if (wcsstr(temp, t_year))
+				FindNReplace(temp, t_year, year);
 			free(year);	free(t_year);
 
 			if (wcsstr(temp, t_sv.mail))
